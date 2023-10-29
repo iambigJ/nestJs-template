@@ -5,25 +5,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-function WithFuel(target) {
-    return class extends target {
-        fuel = 50;
-        foo = () => {
-            return 'g';
-        };
-        isEmpty() {
-            return this.fuel === 0;
-        }
-    };
-}
-let Rocket = class Rocket {
-    fuel = 75;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TaskMiddleware = void 0;
+const common_1 = require("@nestjs/common");
+let TaskMiddleware = class TaskMiddleware {
+    use(req, res, next) {
+        req.ok = 'okokokok';
+        next();
+    }
 };
-Rocket = __decorate([
-    WithFuel
-], Rocket);
-const rocket = new Rocket();
-console.log(rocket.fuel);
-console.log(rocket.isEmpty());
-console.log(rocket.foo());
-//# sourceMappingURL=Jtest.js.map
+exports.TaskMiddleware = TaskMiddleware;
+exports.TaskMiddleware = TaskMiddleware = __decorate([
+    (0, common_1.Injectable)()
+], TaskMiddleware);
+//# sourceMappingURL=task.middleware.js.map

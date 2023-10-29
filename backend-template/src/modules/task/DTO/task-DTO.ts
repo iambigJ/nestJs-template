@@ -1,13 +1,13 @@
-// import { IsNotEmpty, IsInstance, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class taskDto {
-    // @IsNotEmpty()
+    @IsNotEmpty()
     title: string;
 
-    // @IsNotEmpty()
+    @IsNotEmpty()
+
     description: string;
 
-    // @IsOptional()
-    // @IsInstance(User)
+    @IsNotEmpty()
     user?: number;
 }

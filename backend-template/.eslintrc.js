@@ -14,7 +14,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['image-scrapper.js'],
   rules: {
     semi: "off",
     '@typescript-eslint/interface-name-prefix': 'off',

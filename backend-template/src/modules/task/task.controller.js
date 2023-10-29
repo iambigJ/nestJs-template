@@ -8,21 +8,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskController = void 0;
 const common_1 = require("@nestjs/common");
+const exeptions_1 = require("../../common/exeptions");
 let TaskController = class TaskController {
-    gettask() {
-        return { data: 'ok' };
+    createTask(body, req) {
+        const abortSignal = [2, 3, 4];
+        if (body.ok == 'ok') {
+            throw new exeptions_1.CustomException();
+        }
+        return { key: body };
     }
 };
 exports.TaskController = TaskController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], TaskController.prototype, "gettask", null);
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Object)
+], TaskController.prototype, "createTask", null);
 exports.TaskController = TaskController = __decorate([
     (0, common_1.Controller)('task')
 ], TaskController);

@@ -14,7 +14,7 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [task_module_1.TaskModule],
+        imports: [task_module_1.Taskmodule],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

@@ -1,5 +1,5 @@
 export declare class TaskController {
-    gettask(): {
-        data: string;
-    };
+    createTask(body: {
+        ok: string;
+    }, req: any): object;
 }

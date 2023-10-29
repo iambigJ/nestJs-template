@@ -1,16 +1,18 @@
-import { Controller, Post, Body, Req, HttpException,NotFoundException } from '@nestjs/common';
+import { Controller, Post, Body, Req, UsePipes, ValidationPipe } from '@nestjs/common';
+import {BadRequestException} from "@nestjs/common";
+import {taskDto} from './DTO/task-DTO'
+import { TaskService } from './task.service';
 
 @Controller('task')
 export class TaskController {
+  constructor(private readonly TaskService: TaskService) {
+  }
   @Post()
-  createTask(@Body() body: { ok: string }, @Req() req: any): object {
-    const abortSignal: number[] = [2, 3, 4];
-    const mockAbortSignal: Object = { ...abortSignal }; // Fixed variable name
-    console.log(body)
-    if (body.ok == 'ok') {
-      throw  new NotFoundException()
-    }
-
-    return { key: body }; // Assuming 'ok' is a property of the request body
+  @UsePipes(new  ValidationPipe({ whitelist: true ,forbidNonWhitelisted: true
+  }))
+  createTask(@Body()  taskDto: taskDto): object {
+    console.log(taskDto)
+    console.log(this.TaskService.ok())
+    return { key: 'body' }; // Assuming 'ok' is a property of the request body
   }
 }
