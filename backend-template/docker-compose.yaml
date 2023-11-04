@@ -1,0 +1,34 @@
+version: '3'
+services:
+  postgres:
+    restart: always
+    image: postgres
+    container_name: postgres-nestTemplate
+    volumes:
+      - postgres-nestTemplate:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    network_mode: host
+#  rabbitmq:
+#    restart: always
+#    image: imagedocker.partdp.ir/devops/rabbitmq:1.0.0
+#    container_name: rabbitmqgateway
+#    network_mode: backend_gateway_sahab
+#    healthcheck:
+#      test: ["CMD", "rabbitmqctl", "status"]
+#      interval: 5s
+#      timeout: 10s
+#      retries: 3
+#
+#  redis:
+#    restart: always
+#    image: redis
+#    container_name: redisgateway
+#    network_mode: backend_gateway_sahab
+#    environment:
+#      - REDIS_PASS=123456789
+volumes:
+  postgres-nestTemplate:
+

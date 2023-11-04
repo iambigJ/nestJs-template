@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskController = void 0;
 const common_1 = require("@nestjs/common");
-const exeptions_1 = require("../../common/exeptions");
+const exeptions_1 = require("../../common/global/exeptions");
 let TaskController = class TaskController {
     createTask(body, req) {
         const abortSignal = [2, 3, 4];

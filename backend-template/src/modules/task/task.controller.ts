@@ -1,18 +1,23 @@
-import { Controller, Post, Body, Req, UsePipes, ValidationPipe } from '@nestjs/common';
-import {BadRequestException} from "@nestjs/common";
-import {taskDto} from './DTO/task-DTO'
+import { Controller, Post, UsePipes, ValidationPipe, Body, Inject, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
+import { config, me } from '../../services/test.service/test.provider';
+import {TaskGuard} from "./task.guard";
 
 @Controller('task')
 export class TaskController {
-  constructor(private readonly TaskService: TaskService) {
-  }
-  @Post()
-  @UsePipes(new  ValidationPipe({ whitelist: true ,forbidNonWhitelisted: true
-  }))
-  createTask(@Body()  taskDto: taskDto): object {
-    console.log(taskDto)
-    console.log(this.TaskService.ok())
-    return { key: 'body' }; // Assuming 'ok' is a property of the request body
-  }
+    constructor(
+        private readonly taskservice: TaskService,
+        @Inject('Test-provider') private readonly testProvider: me,
+    ) {}
+
+    @Post()
+    @UseGuards(TaskGuard)
+    @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    async createTask(@Body() body: any): Promise<object> {
+        // Assuming 'key' is a property of the request body
+        const { key } = body;
+        console.log( this.testProvider)
+        return {x : 'x'}
+
+    }
 }

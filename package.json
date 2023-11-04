@@ -9,6 +9,10 @@
   "author": "iambigj",
   "license": "ISC",
   "dependencies": {
-    "@nestjs/cli": "^10.1.17"
+    "@nestjs/cli": "^10.1.17",
+    "@nestjs/common": "^10.2.8",
+    "@nestjs/core": "^10.2.8",
+    "@nestjs/platform-express": "^10.2.8",
+    "nest": "^0.1.6"
   }
 }

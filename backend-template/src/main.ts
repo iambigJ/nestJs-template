@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
-
+import {TaskController} from './modules/task/task.controller'
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+    const x = await app.get(TaskController)
+    const y = await  x.createTask('sdsf')
+    console.log(y)
     app.useGlobalPipes(
         new ValidationPipe({
             exceptionFactory: (errors) => {
