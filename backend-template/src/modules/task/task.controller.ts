@@ -1,13 +1,18 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Inject, UseGuards } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Inject, UseGuards,OnModuleInit } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { config, me } from '../../services/test.service/test.provider';
 import {TaskGuard} from "./task.guard";
+import { Logger, Injectable } from '@nestjs/common';
+import { MyLogger} from '../../common/loggercustom'
 
 @Controller('task')
-export class TaskController {
+export class TaskController  {
+
     constructor(
-        private readonly taskservice: TaskService,
-        @Inject('Test-provider') private readonly testProvider: me,
+     private readonly logger: MyLogger,
+    private readonly taskservice: TaskService,
+
+    @Inject('Test-provider') private readonly testProvider: me
     ) {}
 
     @Post()
@@ -17,7 +22,8 @@ export class TaskController {
         // Assuming 'key' is a property of the request body
         const { key } = body;
         console.log( this.testProvider)
-        return {x : 'x'}
+        this.logger.log('sdsge')
 
+        return {x : 'x'}
     }
 }

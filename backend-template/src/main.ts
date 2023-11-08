@@ -1,12 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import { ValidationPipe, BadRequestException,Logger } from '@nestjs/common';
 import {TaskController} from './modules/task/task.controller'
+import {MyLogger} from './common/loggercustom'
+
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    const x = await app.get(TaskController)
-    const y = await  x.createTask('sdsf')
-    console.log(y)
+    const app = await NestFactory.create(AppModule,{
+        logger: new MyLogger()
+    });
+
     app.useGlobalPipes(
         new ValidationPipe({
             exceptionFactory: (errors) => {
@@ -16,8 +18,9 @@ async function bootstrap() {
                 }));
                 return new BadRequestException(result);
             },
-            stopAtFirstError: false,
+            stopAtFirstError: true,
         }),
+
     );
     await app.listen(3000); // Use await to ensure the app is fully initialized before listening
     console.log('Listening on port 3000');
