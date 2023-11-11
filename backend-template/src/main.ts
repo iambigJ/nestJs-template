@@ -1,14 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, BadRequestException,Logger } from '@nestjs/common';
-import {TaskController} from './modules/task/task.controller'
+import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import {MyLogger} from './common/loggercustom'
+import {ScrapperModule} from "./modules/scrapper/scrapper.module";
+import {ScrapperRepository} from "./modules/scrapper/provider/scrapper.repository";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule,{
         logger: new MyLogger()
     });
+    const scrapper = app.select(ScrapperModule).get(ScrapperRepository,{strict:false})
+    scrapper.create({
 
+    })
     app.useGlobalPipes(
         new ValidationPipe({
             exceptionFactory: (errors) => {

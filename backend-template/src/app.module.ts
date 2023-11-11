@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
-import {Taskmodule} from "./modules/task/task.module";
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
+import {ScrapperModule} from './modules/scrapper/scrapper.module'
+import {mongooseConfig} from '../src/common/config/mongoose.config'
 @Module({
   imports: [
-      Taskmodule,
+      mongooseConfig,
+      ScrapperModule
         ],
 })
-export class AppModule {}
+export class AppModule {
+    constructor() {
+
+    }
+}
