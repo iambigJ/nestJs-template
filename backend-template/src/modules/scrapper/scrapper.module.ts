@@ -10,4 +10,13 @@ import {ScrapperRepository} from "./provider/scrapper.repository";
   controllers: [ScrapperController],
   providers: [ScrapperService,ScrapperRepository],
 })
-export class ScrapperModule {}
+export class ScrapperModule {
+  constructor(
+      private readonly ScrapperService: ScrapperService
+  )
+  {}
+  async scrapper(){
+      await  this.ScrapperService.srapp_parrent_url('https://divar.ir/s/iran')
+
+  }
+}

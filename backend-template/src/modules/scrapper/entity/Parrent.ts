@@ -6,11 +6,11 @@ export type parrentDocument = HydratedDocument<Parrent>;
 
 @Schema()
 export class Parrent {
-    @Prop({ required: true, unique: false }) // `required` enforces the field is present, `unique` enforces uniqueness
+    @Prop({ required: true, unique: false })
     CarName: string;
 
     @Prop()
-    Url: number;
+    Url: string[];
 
 }
 

@@ -4,15 +4,13 @@ import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import {MyLogger} from './common/loggercustom'
 import {ScrapperModule} from "./modules/scrapper/scrapper.module";
 import {ScrapperRepository} from "./modules/scrapper/provider/scrapper.repository";
-
+import {ScrapperService} from "./modules/scrapper/provider/scrapper.service";
 async function bootstrap() {
     const app = await NestFactory.create(AppModule,{
         logger: new MyLogger()
     });
-    const scrapper = app.select(ScrapperModule).get(ScrapperRepository,{strict:false})
-    scrapper.create({
-
-    })
+    const scrapper  = app.get(ScrapperModule)
+    scrapper.scrapper()
     app.useGlobalPipes(
         new ValidationPipe({
             exceptionFactory: (errors) => {
@@ -26,7 +24,5 @@ async function bootstrap() {
         }),
 
     );
-    await app.listen(3000);
-    console.log('Listening on port 3000');
 }
 bootstrap();

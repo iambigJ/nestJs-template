@@ -7,7 +7,10 @@ export class ScrapperService {
             let browser
             const hrefResult: string[] = []
             try {
-                browser  = await puppeteer.launch({ headless: 'new' }) // Use true for headless mode
+                browser  = await puppeteer.launch({
+                    args: ['--no-sandbox'],
+                    executablePath: '/bin/chromium-browser',
+                    headless: 'new' })
                 const page = await browser.newPage()
                 await page.setDefaultTimeout(10000)
                 await page.goto(divar_url, {

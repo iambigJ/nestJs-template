@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import {ScrapperModule} from './modules/scrapper/scrapper.module'
 import {mongooseConfig} from '../src/common/config/mongoose.config'
 @Module({
@@ -9,7 +8,6 @@ import {mongooseConfig} from '../src/common/config/mongoose.config'
         ],
 })
 export class AppModule {
-    constructor() {
+    constructor() {}
 
-    }
 }
