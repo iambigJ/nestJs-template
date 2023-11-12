@@ -1,8 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import puppeteer from 'puppeteer-core' // Make sure to import puppeteer
+import {ParrentRepository} from "./parrent.repository";
+import {array_utils} from "../../../common/global/util.arrays";
+import {save_images} from "./scrapper.save";
 
 @Injectable()
 export class ScrapperService {
+    constructor(
+        private readonly scrapperRepo: ParrentRepository,
+        @Inject('saveImages')  private save: typeof save_images
+
+    ) {}
     async srapp_parrent_url(divar_url){
             let browser
             const hrefResult: string[] = []
@@ -39,6 +47,62 @@ export class ScrapperService {
                     await browser.close()
                 }
                 return hrefResult
+        }
+
+    }
+
+    async scrapp_images(mainCarname): Promise<string[]> {
+        interface results  {
+            Url: string
+        }
+            let browser
+            try {
+                const result : results  = await this.scrapperRepo.findOne({ CarName: mainCarname})
+                console.log(result.Url)
+                if (!result) {
+                    console.log('No matching record found.')
+                    return
+                }
+                browser = await puppeteer.launch({
+                    args: ['--no-sandbox'],
+                    executablePath: '/bin/chromium-browser',
+                    headless: 'new' })
+                const urls   = result.Url
+
+                const arr : string[] = []
+                for (const url of urls) {
+                    try {
+                        const page = await browser.newPage()
+                        await page.setDefaultTimeout(20000)
+                        await page.goto(url, {
+                            waitUntil: 'domcontentloaded'
+                        })
+                        await page.waitForTimeout(2000)
+                        await page.waitForSelector('img')
+
+                        const image_src = await page.$$eval('.kt-row img', (elements) => {
+                            return elements.map((element) => element.src)
+                        })
+                        arr.push(image_src)
+                        const page_url = await page.url()
+                        console.log(page_url)
+                        console.log(image_src)
+                        await page.close()
+                    } catch (err) {
+                        console.log(`Error processing URL ${url}: ${err}`)
+                        continue
+                    }
+                }
+                //filter array and return
+
+                return arr
+            } catch (err) {
+                console.log(`Error: ${err}`)
+            } finally {
+                if (browser) {
+                    await browser.close()
+                }
+
         }
 
     }
