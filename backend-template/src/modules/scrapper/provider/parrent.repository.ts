@@ -7,13 +7,13 @@ import { ParrentDto } from '../DTO/parrent.dto';
 @Injectable()
 export class ParrentRepository {
     constructor(
-        @InjectModel('par') private readonly parrentModel: Model<typeof parrent>,
+        @InjectModel(Parrent.name) private readonly parrentModel: Model<typeof parrent>,
     ) {}
 
     async create(parrentDto: ParrentDto): Promise<void> {
         try {
             const result = await this.parrentModel.create(parrentDto);
-            console.log(result);
+            console.log('update' ,result);
         } catch (error) {
             console.error('Error creating parrent:', error);
             // Handle error as needed
@@ -22,7 +22,7 @@ export class ParrentRepository {
 
     async findAndupdate(mainCarname: string, updateres: object): Promise<any> {
         try {
-            const update = {$set:  updateres}
+            const update =  updateres
             const filter = { CarName: mainCarname };
             const options = {
                 upsert: true,
@@ -30,7 +30,7 @@ export class ParrentRepository {
                 runValidators: true,
             };
            const result  =  await this.parrentModel.findOneAndUpdate(filter, update, options);
-           return result
+            console.log('update' ,result);
         } catch (error) {
             console.error('Error finding/updating parrent:', error);
             // Handle error as needed

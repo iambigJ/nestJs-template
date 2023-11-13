@@ -2,7 +2,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type parrentDocument = HydratedDocument<Images>;
+export type ImageSchema = HydratedDocument<Images>;
 
 @Schema()
 export class Images {
@@ -14,4 +14,4 @@ export class Images {
 
 }
 
-export const parrent= SchemaFactory.createForClass(Images);
+export const ImagesEntity= SchemaFactory.createForClass(Images);

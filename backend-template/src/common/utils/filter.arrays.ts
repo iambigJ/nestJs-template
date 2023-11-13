@@ -1,4 +1,4 @@
-import {array_utils} from "./global/util.arrays";
+import {array_utils} from "../global/util.arrays";
 
 export  function findDuplicateStrings(arr) {
     const stringCount = {} // Object to store string occurrences

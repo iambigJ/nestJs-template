@@ -8,7 +8,6 @@ import {save_images} from "./scrapper.save";
 export class ScrapperService {
     constructor(
         private readonly scrapperRepo: ParrentRepository,
-        @Inject('saveImages')  private save: typeof save_images
 
     ) {}
     async srapp_parrent_url(divar_url){
@@ -51,14 +50,14 @@ export class ScrapperService {
 
     }
 
-    async scrapp_images(mainCarname): Promise<string[]> {
+    async scrapp_images(mainCarname: string): Promise<string[]> {
         interface results  {
             Url: string
         }
             let browser
             try {
-                const result : results  = await this.scrapperRepo.findOne({ CarName: mainCarname})
-                console.log(result.Url)
+                const result : results  = await this.scrapperRepo.findOne({CarName: mainCarname})
+                console.log( result.Url)
                 if (!result) {
                     console.log('No matching record found.')
                     return
@@ -104,7 +103,6 @@ export class ScrapperService {
                 }
 
         }
-
     }
 
 }

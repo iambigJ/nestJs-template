@@ -12,7 +12,7 @@ export class ScrapperRepository {
 
     async create(parrentDto: ParrentDto): Promise<void> {
         try {
-            const result = await this.parrentModel.create(parrentDto);
+            const result = await this.parrentModel.create({Carname: 'okokok', Url: 'sdsdsd'});
             console.log(result);
         } catch (error) {
             console.error('Error creating parrent:', error);
@@ -29,7 +29,7 @@ export class ScrapperRepository {
                 new: true,
                 runValidators: true,
             };
-           const result  =  await this.parrentModel.findOneAndUpdate(filter, update, options);
+           const result   =  await this.parrentModel.findOneAndUpdate(filter, update, options);
            return result
         } catch (error) {
             console.error('Error finding/updating parrent:', error);
