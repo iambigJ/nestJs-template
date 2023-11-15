@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {Parrent, parrent} from '../entity/Parrent';
 import { ParrentDto } from '../DTO/parrent.dto';
-
 @Injectable()
 export class ParrentRepository {
     constructor(
