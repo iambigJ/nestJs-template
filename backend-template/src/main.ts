@@ -10,8 +10,8 @@ async function bootstrap() {
         logger: new MyLogger()
     });
     const scrapper  = app.get(ScrapperModule)
-    // scrapper.scrapp_parrent_url('alpha','https://divar.ir/s/iran/car/alfa-romeo/4c')
-    scrapper.scrapp_images('alpha')
+    await scrapper.scrapp_parrent_url('alpha','https://divar.ir/s/iran/car/alfa-romeo/4c')
+    await scrapper.scrapp_images('alpha')
     app.useGlobalPipes(
         new ValidationPipe({
             exceptionFactory: (errors) => {

@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@nestjs/common';
 import puppeteer from 'puppeteer-core' // Make sure to import puppeteer
 import {ParrentRepository} from "./parrent.repository";
 import {array_utils} from "../../../common/global/util.arrays";
-import {save_images} from "./scrapper.save";
 
 @Injectable()
 export class ScrapperService {

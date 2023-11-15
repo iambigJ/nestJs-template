@@ -5,7 +5,8 @@ import {MongooseModule} from "@nestjs/mongoose";
 import {ParrentRepository} from "./provider/parrent.repository";
 import {array_utils} from "../../common/global/util.arrays";
 import {ImagesEntity,Images} from "./entity/images";
-
+import {save} from "./provider/scrapper.save";
+import { ConfigService } from '@nestjs/config';
 class test{
     constructor(x, private readonly ScrapperService
     ) {
@@ -17,9 +18,16 @@ class test{
 }
 @Module({
     imports: [
-        MongooseModule.forFeature([
-            { name: Parrent.name, schema: parrent },
-            { name: Images.name, schema: ImagesEntity}
+        MongooseModule.forFeatureAsync([
+            {
+                name: Parrent.name,
+                useFactory: () => {
+                    const schema = parrent
+                    schema.post
+                    ('findOneAndUpdate', () => console.log('pre update'));
+                    return schema;
+                },
+            },
         ]),
     ],
     providers: [ScrapperService, ParrentRepository,
@@ -37,7 +45,7 @@ export class ScrapperModule {
 
         private readonly ScrapperService: ScrapperService,
         private readonly Scrapperrepo: ParrentRepository,
-        @Inject('ok')  private readonly dynamic: test
+        private config: ConfigService
     ) {
     }
 
@@ -46,15 +54,15 @@ export class ScrapperModule {
         const parrent_result: string[] =  array_utils.findUniqueStrings(parrent_scrapps)
         const parrent_mongo: string[] = parrent_result.flat(Infinity)
         const result: void = await this.Scrapperrepo.findAndupdate(carname, {Carname: carname, Url: parrent_mongo})
+        console.log('................................0..........................')
+        console.log(result)
     }
 
     async scrapp_images(carname: string): Promise<void> {
-        const x = new this.dynamic()
-
-        // const url_images = await this.ScrapperService.scrapp_images(carname)
-        // const final_urls = array_utils.filter(url_images)
-        //  await this.Scrapperrepo.findAndupdate('alpha',{ CarName:'p', Url: ['1','2']})
-        // console.log('scrapping started')
-        // console.log('final url is ', final_urls)
+        const url_images = await this.ScrapperService.scrapp_images(carname)
+        const final_urls = array_utils.filter(url_images)
+        await this.Scrapperrepo.findAndupdate('alpha',{ CarName:'alpha', Url: ['1','2']})
+        console.log('..............................................1...............................................')
+        save.Saveimages(final_urls,carname)
     }
 }

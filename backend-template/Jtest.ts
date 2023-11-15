@@ -1,8 +1,4 @@
-interface Pet {
-    name: string;
-}
-let dog = { name: "Lassie", owner: "Rudd Weatherwax" };
-function greet(pet: Pet) {
-    console.log("Hello, " + pet.name);
-}
-greet(dog); // OK
+import * as path from 'path'
+
+const absolutePath = path.resolve('folder', 'file.txt');
+console.log(absolutePath);
