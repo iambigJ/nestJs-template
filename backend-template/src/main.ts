@@ -3,14 +3,18 @@ import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import {MyLogger} from './common/loggercustom'
 import {ScrapperModule} from "./modules/scrapper/scrapper.module";
-import {ParrentRepository} from "./modules/scrapper/provider/parrent.repository";
+import {inital_divar} from './modules/scrapper/provider/intial.provider'
 import {ScrapperService} from "./modules/scrapper/provider/scrapper.service";
+
 async function bootstrap() {
     const app = await NestFactory.create(AppModule,{
         logger: new MyLogger()
     });
-    const scrapper  = app.get(ScrapperModule)
-    await scrapper.scrapp_parrent_url('alpha','https://divar.ir/s/iran/car/alfa-romeo/4c')
+    const scrapper  = app.select(ScrapperModule).get(inital_divar)
+    scrapper.for_intial()
+    // const x  = app.get(ScrapperModule)
+    // x.test()
+
     app.useGlobalPipes(
         new ValidationPipe({
             exceptionFactory: (errors) => {

@@ -1,4 +1,4 @@
 import * as path from 'path'
 
-const absolutePath = path.resolve('folder', 'file.txt');
-console.log(absolutePath);
+const x = 1 & 5
+console.log(x)

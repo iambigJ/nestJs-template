@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import {ScrapperModule} from './modules/scrapper/scrapper.module'
-import {mongooseConfig} from '../src/common/config/mongoose.config'
+import {mongooseConfig} from '../config/mongoose.config'
 import { ConfigModule } from '@nestjs/config';
-import configload from './common/config/config'
+import {default as configload, cars} from '../config/configuration'
+
 @Module({
   imports: [
       ConfigModule.forRoot({
-          load: [configload],
+          load: [cars],
           isGlobal: true,
 
       }),

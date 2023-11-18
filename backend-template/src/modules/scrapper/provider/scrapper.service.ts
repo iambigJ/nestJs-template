@@ -2,13 +2,21 @@ import { Injectable, Inject } from '@nestjs/common';
 import puppeteer from 'puppeteer-core' // Make sure to import puppeteer
 import {ParrentRepository} from "./parrent.repository";
 import {array_utils} from "../../../common/global/util.arrays";
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ScrapperService {
     constructor(
         private readonly scrapperRepo: ParrentRepository,
+        private readonly config: ConfigService
 
     ) {}
+
+    test(){
+       console.log( this.config.get('cars'))
+
+    }
+
     async srapp_parrent_url(divar_url){
             let browser
             const hrefResult: string[] = []
@@ -83,6 +91,9 @@ export class ScrapperService {
                         })
                         arr.push(image_src)
                         const page_url = await page.url()
+                        if (arr.length > 2000){
+                            break
+                        }
                         console.log(page_url)
                         console.log(image_src)
                         await page.close()

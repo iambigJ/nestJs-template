@@ -12,7 +12,7 @@ export default new (class Logger {
       timestamp({ format: this.getTimeZone() }),
       json(),
       align(),
-      printf((info) => {
+      ((info) => {
         const { timestamp, level, message, meta } = info
 
         return `${timestamp} [${level}]: ${message} ${

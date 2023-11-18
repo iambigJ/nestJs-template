@@ -10,9 +10,13 @@ export class save {
         let count: number = 0
         try {
 
-            const filePath = join(__dirname, `../../../../../data/${mainCarname}/`)
+            const directoryPath =  `${process.cwd()}/data`
+            const filePath = `${process.cwd()}/data/${mainCarname}`
+            if (!existsSync(directoryPath)) {
+               await mkdirSync(directoryPath)
+            }
             if (!existsSync(filePath)) {
-                mkdirSync(filePath)
+               await mkdirSync(filePath)
             }
             for (const i of result) {
                 try {
@@ -22,7 +26,7 @@ export class save {
                     count++
                     const spliter = i.split('/')
                     const image_name = spliter[spliter.length - 1]
-                    fs.writeFileSync(`${filePath}${count}${image_name}.jpg`, response.data)
+                    fs.writeFileSync(`${filePath}/${count}${image_name}.jpg`, response.data)
                     // console.log('Image saved as ok.jpg');
                     console.log(` image ${count} sucsesfuly stored`)
                 } catch (err) {
