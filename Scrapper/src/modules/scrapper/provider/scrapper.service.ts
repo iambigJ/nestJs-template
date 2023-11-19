@@ -39,9 +39,12 @@ export class ScrapperService {
                     }
                     hrefResult.push(Result)
                     const previousHeight  = await page.evaluate('document.body.scrollHeight')
+                    if (previousHeight > 100000) {
+                        break
+                    }
                     await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
                     await page.waitForFunction(`document.body.scrollHeight > ${previousHeight}`)
-                    await page.waitForTimeout(4000)
+                    await page.waitForTimeout(2000)
                     console.log(previousHeight)
                     console.log(Result.length)
                 }
@@ -79,7 +82,7 @@ export class ScrapperService {
                 for (const url of urls) {
                     try {
                         const page = await browser.newPage()
-                        await page.setDefaultTimeout(20000)
+                        await page.setDefaultTimeout(5000)
                         await page.goto(url, {
                             waitUntil: 'domcontentloaded'
                         })
